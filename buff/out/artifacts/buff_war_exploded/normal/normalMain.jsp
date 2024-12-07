@@ -23,10 +23,34 @@
         <%}else{%>
         不可交易
         <%}%></h2>
-    <a href="/buff/normal/inventory.jsp">查看我的库存</a>|
-    <a href="/buff/normal/market.jsp">查看市场</a>|
-    <a href="/buff/normal/share.jsp">查看玩家分享</a>|
-    <a href="/buff/normal/sell.jsp">查看我的出售记录</a>
+
+    <form action="/buff/normal/pagingInventory" method="POST">
+        <input type="hidden" name="userid" value="<%= user.getId() %>">
+        <input type="hidden" name="sellstatus" value="<%= user.getSellstatus() %>">
+        <button type="submit">查看我的库存</button>
+    </form>
+
+    <form action="/buff/normal/pagingMarket" method="POST">
+        <input type="hidden" name="userid" value="<%= user.getId() %>">
+        <input type="hidden" name="sellstatus" value="<%= user.getSellstatus() %>">
+        <button type="submit">查看市场</button>
+    </form>
+    <form action="/buff/normal/pagingShare" method="POST">
+        <input type="hidden" name="username" value="<%= user.getUsername() %>">
+        <button type="submit">玩家秀</button>
+    </form>
+
+    <form action="/buff/normal/pagingSell" method="POST">
+        <input type="hidden" name="userid" value="<%= user.getId() %>">
+        <input type="hidden" name="sellstatus" value="<%= user.getSellstatus() %>">
+        <button type="submit">我的出售记录</button>
+    </form>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <a href="/buff/login.jsp">退出登录</a><br/>
 
 </body>
 </html>

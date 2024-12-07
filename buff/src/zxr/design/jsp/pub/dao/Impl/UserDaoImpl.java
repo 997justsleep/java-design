@@ -10,8 +10,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements IUserDao {
-    private static UserDaoImpl instance;
+    //单例模式三件套
+    private static UserDaoImpl instance;//实例
     private Connection conn;
+
+    private UserDaoImpl() {//私有化构造函数
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/buff?serverTimeZone=Asia/Shanghai",
+                    "root",
+                    "root"
+            );
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("数据库驱动错误！");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("数据库访问错误！");
+        }
+    }
+
+    static public UserDaoImpl getInstance() {//共有静态方法获取实例
+        if(instance == null){
+            instance = new UserDaoImpl();
+        }
+        return instance;
+    }
+    //以上为单例模式模板
 
     //MD5加密
     public static String encryptMD5(String input) {
@@ -41,33 +68,9 @@ public class UserDaoImpl implements IUserDao {
             return null;
         }
     }
-    private UserDaoImpl() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/buff?serverTimeZone=Asia/Shanghai",
-                    "root",
-                    "root"
-            );
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("数据库驱动错误！");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("数据库访问错误！");
-        }
-    }
-
-    static public UserDaoImpl getInstance() {
-        if(instance == null){
-            instance = new UserDaoImpl();
-        }
-        return instance;
-    }
 
     @Override
-    public User loginUser(User user) {
+    public User loginUser(User user) {//匹配登录用户
         String sql = "select * from user where username=? and password=?";
         User ansuser = new User();
         try {
@@ -91,7 +94,7 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public Boolean registUser(User user) {
+    public Boolean registUser(User user) {//注册
         String sql = "insert into user(username,password) values(?,?)";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -108,7 +111,7 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public List<User> selectAll(int currentPage, int pageSize) {
+    public List<User> selectAll(int currentPage, int pageSize) {//查询所有用户
         List<User> userList = new ArrayList<>();
         String sql = "select * from user limit ?,?";
         PreparedStatement pstmt;
@@ -135,7 +138,7 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public Integer getTotalUserCount() {
+    public Integer getTotalUserCount() {//获取总用户数量
         int count = 0;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

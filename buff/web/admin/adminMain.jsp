@@ -14,10 +14,27 @@
         }
     %>
     <h1>管理员<%=user.getUsername()%>,你好  欢迎登录BUFF系统</h1>
-    <a href="/buff/admin/pagingUsers">查看用户</a> |
-    <a href="/buff/admin/market.jsp">查看市场</a> |
-    <a href="/buff/admin/sell.jsp">查看出售记录</a>|
-    <a href="/buff/admin/share.jsp">查看玩家分享</a>
 
+    <form action="/buff/admin/pagingUser" method="POST">
+        <input type="hidden" name="username" value="<%= user.getUsername() %>">
+        <button type="submit">查看用户</button>
+    </form>
+    <form action="/buff/admin/pagingMarket" method="POST">
+        <input type="hidden" name="username" value="<%= user.getUsername() %>">
+        <button type="submit">查看市场</button>
+    </form>
+    <form action="/buff/admin/pagingSell" method="POST">
+        <input type="hidden" name="username" value="<%= user.getUsername() %>">
+        <button type="submit">查看出售记录</button>
+    </form>
+    <form action="/buff/admin/pagingShare" method="POST">
+        <input type="hidden" name="username" value="<%= user.getUsername() %>">
+        <button type="submit">玩家秀</button>
+    </form>
+    <br/>
+    <br/>
+    <form action="/buff/login.jsp" method="POST">
+        <button type="submit">退出登录</button>
+    </form>
     </body>
 </html>

@@ -1,6 +1,7 @@
 package zxr.design.jsp.pub.pojo;
 
 public class Market {
+    Integer id;
     Integer from;
     String guntype;
     String skinname;
@@ -14,6 +15,14 @@ public class Market {
         this.guntype = guntype;
         this.skinname = skinname;
         this.price = price;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getFrom() {

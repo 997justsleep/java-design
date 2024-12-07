@@ -36,7 +36,7 @@
             <td><%=user1.getAtrribute()%></td>
             <td><%=user1.getSellstatus()%></td>
             <td>
-                <a href="#" onclick="return confirm('确定要禁止该用户交易吗？')">禁止交易</a>
+                <a href="#">设置交易状态</a>
             </td>
         </tr>
         <%
@@ -59,19 +59,27 @@
     %>
     <div>
         <% if (currentPage > 1) { %>
-        <a href="<%=request.getContextPath()%>/admin/pagingUsers?page=<%=currentPage - 1%>">上一页</a>
+        <a href="<%=request.getContextPath()%>/admin/pagingUser?page=<%=currentPage - 1%>">上一页</a>
         <% } %>
         <% for (int i = 1; i <= totalPages; i++) { %>
         <% if (i == currentPage) { %>
         <span><%=i%></span>
         <% } else { %>
-        <a href="<%=request.getContextPath()%>/admin/pagingUsers?page=<%=i%>"><%=i%></a>
+        <a href="<%=request.getContextPath()%>/admin/pagingUser?page=<%=i%>"><%=i%></a>
         <% } %>
         <% } %>
         <% if (currentPage < totalPages) { %>
-        <a href="<%=request.getContextPath()%>/admin/pagingUsers?page=<%=currentPage + 1%>">下一页</a>
+        <a href="<%=request.getContextPath()%>/admin/pagingUser?page=<%=currentPage + 1%>">下一页</a>
         <% } %>
     </div>
-    <a href="./adminMain.jsp">返回主页</a>
+    <form action="./adminMain.jsp" method="POST">
+        <button type="submit">返回主页</button>
+    </form>
+    <br/>
+    <br/>
+    <form action="/buff/login.jsp" method="POST">
+        <button type="submit">退出登录</button>
+    </form>
+
     </body>
 </html>

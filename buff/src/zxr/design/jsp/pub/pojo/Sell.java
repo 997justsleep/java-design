@@ -1,6 +1,7 @@
 package zxr.design.jsp.pub.pojo;
 
 public class Sell {
+    Integer id;
     Integer from;
     Integer to;
     String guntype;
@@ -18,19 +19,27 @@ public class Sell {
         this.money = money;
     }
 
-    public int getFrom() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getFrom() {
         return from;
     }
 
-    public void setFrom(int from) {
+    public void setFrom(Integer from) {
         this.from = from;
     }
 
-    public int getTo() {
+    public Integer getTo() {
         return to;
     }
 
-    public void setTo(int to) {
+    public void setTo(Integer to) {
         this.to = to;
     }
 
@@ -50,11 +59,11 @@ public class Sell {
         this.skinname = skinname;
     }
 
-    public double getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 
