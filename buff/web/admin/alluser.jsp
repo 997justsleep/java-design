@@ -72,5 +72,6 @@
         <a href="<%=request.getContextPath()%>/admin/pagingUsers?page=<%=currentPage + 1%>">下一页</a>
         <% } %>
     </div>
+    <a href="./adminMain.jsp">返回主页</a>
     </body>
 </html>

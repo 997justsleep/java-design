@@ -33,11 +33,13 @@ public class LoginServlet extends HttpServlet {
         if( user1 !=  null){//用户存在
             if("admin".equals(UserDaoImpl.getInstance().loginUser(user).getAtrribute())){//管理员
                 System.out.println("管理员登录");
-                req.setAttribute("user", user1);
+                req.getSession().setAttribute("user", user1);
+                //req.setAttribute("user", user1);
                 req.getRequestDispatcher("admin/adminMain.jsp").forward(req, resp);
             }else{//普通用户
                 System.out.println("普通用户登录");
-                req.setAttribute("user", user1);
+                req.getSession().setAttribute("user", user1);
+                //req.setAttribute("user", user1);
                 req.getRequestDispatcher("normal/normalMain.jsp").forward(req, resp);
             }
         }else{//用户不存在

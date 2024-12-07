@@ -41,5 +41,6 @@
         %>
         </tbody>
     </table>
+    <a href="./normalMain.jsp">返回主页</a>
 </body>
 </html>
