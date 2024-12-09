@@ -14,7 +14,7 @@
 <%=
 request.getAttribute("result")
 %>
-<a href="/buff/normal/pagingInventory?userid=<%=request.getAttribute("id")%>&page=<%=request.getAttribute("page")%>">返回</a>
+<a href="/buff/normal/inventory.jsp">返回</a>
 </body>
 </html>
 

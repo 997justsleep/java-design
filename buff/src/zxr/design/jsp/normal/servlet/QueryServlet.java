@@ -27,9 +27,6 @@ public class QueryServlet extends HttpServlet {
         Inventory inventory = inventoryService.selectSkinByid(id);
         System.out.println(inventory.toString());
         req.setAttribute("inventory",inventory);
-        System.out.println("querybyid     id"+req.getParameter("id")+",page"+req.getParameter("page"));
-        req.setAttribute("id",req.getParameter("id"));
-        req.setAttribute("page",req.getParameter("page"));
 
         req.getRequestDispatcher("sellskin.jsp").forward(req, resp);
     }

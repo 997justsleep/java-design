@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         <%
-            List<Inventory> invenList = (List<Inventory>) request.getAttribute("invenList");
+            List<Inventory> invenList = (List<Inventory>) session.getAttribute("invenList");
             if(invenList != null && !invenList.isEmpty()){
                 for (int i = 0; i < invenList.size(); i++) {
                     Inventory inventory = invenList.get(i);
@@ -41,7 +41,7 @@
                 <a href="#">查看该皮肤市场</a>
             </td>
             <td>
-                <a href="/buff/normal/queryByid?id=<%=inventory.getId()%>&page=<%=(int)request.getAttribute("currentPage")%>">设置上架状态</a>
+                <a href="/buff/normal/queryByid?id=<%=inventory.getId()%>">设置上架状态</a>
             </td>
 
         </tr>
@@ -60,9 +60,9 @@
 
     <br />
     <%
-        String userid = (String)request.getAttribute("userid");
-        int currentPage = (int) request.getAttribute("currentPage");
-        int totalPages = (int) request.getAttribute("totalPages");
+        String userid = (String)session.getAttribute("userid");
+        int currentPage = (int) session.getAttribute("currentPage");
+        int totalPages = (int) session.getAttribute("totalPages");
     %>
     <div>
         <% if (currentPage > 1) { %>

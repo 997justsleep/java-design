@@ -37,9 +37,7 @@ public class SellSkinServlet extends HttpServlet {
             IInventoryService iInventoryService = new InventoryServiceImpl();
             Boolean res = iInventoryService.sellSkin(Integer.parseInt(id),market);
             req.setAttribute("result",res? "成功":"失败");
-            req.setAttribute("id",req.getParameter("userid"));
-            req.setAttribute("page",req.getParameter("page"));
-            System.out.println("sellskin   userid"+req.getParameter("userid")+",page"+req.getParameter("page"));
+
             req.getRequestDispatcher("/normal/sellresult.jsp").forward(req,resp);
         }else{//下架
             String id = req.getParameter("id");
@@ -49,9 +47,7 @@ public class SellSkinServlet extends HttpServlet {
             IInventoryService iInventoryService = new InventoryServiceImpl();
             Boolean res = iInventoryService.unsellSkin(Integer.parseInt(id),Integer.parseInt(from),guntype,skin);
             req.setAttribute("result",res? "成功":"失败");
-            req.setAttribute("id",req.getParameter("userid"));
-            req.setAttribute("page",req.getParameter("page"));
-            System.out.println("sellskin   userid"+req.getParameter("userid")+",page"+req.getParameter("page"));
+
             req.getRequestDispatcher("/normal/sellresult.jsp").forward(req,resp);
         }
 

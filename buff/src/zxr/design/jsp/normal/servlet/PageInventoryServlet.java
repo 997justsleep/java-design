@@ -42,10 +42,10 @@ public class PageInventoryServlet extends HttpServlet {
         int totalCount = iInventoryService.getTotalPage(id);
         int totalPages = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE; // 计算总页数
         System.out.println("totalCount: "+totalCount+",totalPages: "+totalPages);
-        req.setAttribute("userid",userid);
-        req.setAttribute("invenList", invenList);
-        req.setAttribute("currentPage", currentPage);
-        req.setAttribute("totalPages", totalPages);
+        req.getSession().setAttribute("userid",userid);
+        req.getSession().setAttribute("invenList", invenList);
+        req.getSession().setAttribute("currentPage", currentPage);
+        req.getSession().setAttribute("totalPages", totalPages);
 
         req.getRequestDispatcher("inventory.jsp").forward(req, resp);
     }

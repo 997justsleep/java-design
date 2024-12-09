@@ -27,15 +27,9 @@
         <input type="hidden" name="from" value="<%=inventory.getBelong()%>">
         <input type="hidden" name="guntype" value="<%=inventory.getGuntype()%>">
         <input type="hidden" name="skin" value="<%=inventory.getSkinname()%>">
-        <input type="hidden" name="userid" value="<%=request.getAttribute("id")%>">
-        <input type="hidden" name="page" value="<%=request.getAttribute("page")%>">
         价格：<input type="text" name="price"/><br/>
         <input type="submit" value="上架"/>
     </form>
-    <%
-        System.out.println("id in JSP: " + request.getAttribute("id"));
-        System.out.println("page in JSP: " + request.getAttribute("page"));
-    %>
     <%
         }else{
     %>
@@ -45,8 +39,6 @@
         <input type="hidden" name="from" value="<%=inventory.getBelong()%>">
         <input type="hidden" name="guntype" value="<%=inventory.getGuntype()%>">
         <input type="hidden" name="skin" value="<%=inventory.getSkinname()%>">
-        <input type="hidden" name="userid" value="<%=request.getAttribute("id")%>">
-        <input type="hidden" name="page" value="<%=request.getAttribute("page")%>">
         <input type="submit" value="下架"/>
     </form>
     <%
