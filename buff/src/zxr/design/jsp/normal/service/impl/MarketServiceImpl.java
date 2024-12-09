@@ -48,7 +48,9 @@ public class MarketServiceImpl implements IMarketService {
     }
 
     @Override
-    public List<Market> selectByMoney_min_max(int min_much, int max_much,int currentPage,int pageSize) {
-        return MarketDaoImpl.getInstance().selectByMonney_min_max(min_much, max_much, currentPage, pageSize);
+    public Integer selectGunSkinCount(String guntype, String skinname) {
+        return MarketDaoImpl.getInstance().selectGunSkinCount(guntype, skinname);
     }
+
+
 }

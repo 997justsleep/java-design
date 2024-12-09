@@ -24,6 +24,8 @@ public class PageInventoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
         int currentPage = 1; // 默认当前页码为1
         String pageParam = req.getParameter("page");
         String userid = req.getParameter("userid");

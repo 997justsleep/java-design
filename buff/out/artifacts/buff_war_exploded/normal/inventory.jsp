@@ -27,6 +27,11 @@
         </thead>
         <tbody>
         <%
+            String userid = (String)session.getAttribute("userid");
+            int currentPage = (int) session.getAttribute("currentPage");
+            int totalPages = (int) session.getAttribute("totalPages");
+        %>
+        <%
             List<Inventory> invenList = (List<Inventory>) session.getAttribute("invenList");
             String sellstatus = (String)session.getAttribute("sellstatus");
             if(invenList != null && !invenList.isEmpty()){
@@ -39,13 +44,22 @@
             <td><%=inventory.getSkinname()%></td>
             <td><%=inventory.getSelling()%></td>
             <td>
-                <a href="#">查看该皮肤市场</a>
+                <form action="/buff/normal/queryMarket" method="POST">
+                    <input type="hidden" name="id" value="<%= inventory.getId() %>">
+                    <input type="hidden" name="guntype" value="<%= inventory.getGuntype() %>">
+                    <input type="hidden" name="skinname" value="<%= inventory.getSkinname() %>">
+                    <input type="hidden" name="sellstatus" value="<%= inventory.getSelling() %>">
+                    <button type="submit">查看该皮肤市场</button>
+                </form>
             </td>
             <td>
                 <%
                     if("true".equals(sellstatus)){
                 %>
-                <a href="/buff/normal/queryByid?id=<%=inventory.getId()%>">设置上架状态</a>
+                <form action="/buff/normal/queryByid" method="POST">
+                    <input type="hidden" name="id" value="<%= inventory.getId() %>">
+                    <button type="submit">设置上架状态</button>
+                </form>
                 <%
                     }else{
                 %>
@@ -68,13 +82,7 @@
         %>
         </tbody>
     </table>
-
     <br />
-    <%
-        String userid = (String)session.getAttribute("userid");
-        int currentPage = (int) session.getAttribute("currentPage");
-        int totalPages = (int) session.getAttribute("totalPages");
-    %>
     <div>
         <%-- 上一页 --%>
         <% if (currentPage > 1) { %>

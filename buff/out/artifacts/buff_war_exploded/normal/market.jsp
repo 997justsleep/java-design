@@ -9,10 +9,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>市场</title>
 </head>
 <body>
+    <%
+        String sellstatus = (String)session.getAttribute("sellstatus");
+        String userid = (String)session.getAttribute("userid");
+    %>
     <h2>市场情况</h2>
+    <h3>按枪型筛选</h3>
+    <form action="/buff/normal/selectMarket" method="post">
+        枪型：<input type="text" name="guntype"/>
+        皮肤：<input type="text" name="skinname"/>
+        <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
+        <input type="hidden" name="userid" value="<%=userid%>">
+        <input type="submit" value="筛选"/>
+        <input type="reset" value="重置"/><br/>
+    </form>
     <table border="1">
         <thead>
         <tr>
@@ -27,8 +40,6 @@
         <tbody>
         <%
             List<Market> marketList = (List<Market>) session.getAttribute("marketList");
-            String sellstatus = (String)session.getAttribute("sellstatus");
-            String userid = (String)session.getAttribute("userid");
             if(marketList != null && !marketList.isEmpty()){
                 for (int i = 0; i < marketList.size(); i++) {
                     Market market = marketList.get(i);

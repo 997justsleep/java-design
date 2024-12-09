@@ -1,8 +1,10 @@
 package zxr.design.jsp.normal.servlet;
 
+import zxr.design.jsp.normal.service.IInventoryService;
 import zxr.design.jsp.normal.service.IMarketService;
+import zxr.design.jsp.normal.service.impl.InventoryServiceImpl;
 import zxr.design.jsp.normal.service.impl.MarketServiceImpl;
-import zxr.design.jsp.pub.dao.Impl.MarketDaoImpl;
+import zxr.design.jsp.pub.pojo.Inventory;
 import zxr.design.jsp.pub.pojo.Market;
 
 import javax.servlet.ServletException;
@@ -13,10 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/normal/pagingMarket")
-public class PageMarketServlet extends HttpServlet {
+@WebServlet("/normal/queryMarket")
+public class QueryMarketServlet extends HttpServlet {
     private static final int PAGE_SIZE = 5; // 每页显示的记录数
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -28,7 +29,8 @@ public class PageMarketServlet extends HttpServlet {
         resp.setContentType("text/html;charset=utf-8");
         int currentPage = 1; // 默认当前页码为1
         String pageParam = req.getParameter("page");
-        String sellstatus = req.getParameter("sellstatus");
+        String guntype = req.getParameter("guntype");
+        String skinname = req.getParameter("skinname");
         if (pageParam!= null &&!pageParam.isEmpty()) {
             try {
                 currentPage = Integer.parseInt(pageParam);
@@ -39,9 +41,9 @@ public class PageMarketServlet extends HttpServlet {
         }
 
         IMarketService iMarketService = new MarketServiceImpl();
-        List<Market> List = iMarketService.getAllMarket(currentPage, PAGE_SIZE);
+        List<Market> List = iMarketService.selectByGun_skin(guntype,skinname,currentPage, PAGE_SIZE);
 
-        int totalCount = iMarketService.getTotalMarketCount();
+        int totalCount = iMarketService.selectGunSkinCount(guntype,skinname);
         int totalPages = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE; // 计算总页数
         System.out.println("totalCount: "+totalCount+",totalPages: "+totalPages);
 

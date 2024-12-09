@@ -20,7 +20,8 @@ public class BuySkinServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8"); // 设置请求编码为UTF-8
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
         IMarketService iMarketService = new MarketServiceImpl();
         String userid = req.getParameter("userid");
         String marketid = req.getParameter("marketid");
@@ -28,15 +29,6 @@ public class BuySkinServlet extends HttpServlet {
         String marketguntype = req.getParameter("marketguntype");
         String marketskinname = req.getParameter("marketskinname");
         String marketprice = req.getParameter("marketprice");
-
-        // 打印请求参数
-        System.out.println("Received parameters:");
-        System.out.println("userid: " + userid);
-        System.out.println("marketid: " + marketid);
-        System.out.println("marketfrom: " + marketfrom);
-        System.out.println("marketguntype: " + marketguntype);
-        System.out.println("marketskinname: " + marketskinname);
-        System.out.println("marketprice: " + marketprice);
 
         Market market = new Market();
         System.out.println("buyskin:"+userid);

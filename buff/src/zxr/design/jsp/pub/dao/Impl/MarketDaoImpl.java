@@ -150,15 +150,33 @@ public class MarketDaoImpl implements IMarketDao {
     @Override
     public List<Market> selectByGun_skin(String guntype, String skinname,int currentPage,int pageSize) {
         List<Market> marketList = new ArrayList<>();
-        String sql = "select * from market where guntype = ? and skinname = ? limit ?,?";
         PreparedStatement pstmt;
         ResultSet rs;
         try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,guntype);
-            pstmt.setString(2,skinname);
-            pstmt.setInt(3, (currentPage - 1) * pageSize);
-            pstmt.setInt(4, pageSize);
+            if(guntype != null && !"".equals(guntype) && skinname != null && ! "".equals(skinname)){
+                String sql = "select * from market where guntype like ? and skinname like ? limit ?,?";
+                guntype = '%'+guntype+'%';
+                skinname = '%'+skinname+'%';
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,guntype);
+                pstmt.setString(2,skinname);
+                pstmt.setInt(3, (currentPage - 1) * pageSize);
+                pstmt.setInt(4, pageSize);
+            }else if(guntype == null || "".equals(guntype)){
+                String sql = "select * from market where skinname like ? limit ?,?";
+                skinname = '%'+skinname+'%';
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,skinname);
+                pstmt.setInt(2, (currentPage - 1) * pageSize);
+                pstmt.setInt(3, pageSize);
+            }else{
+                String sql = "select * from market where guntype like ? limit ?,?";
+                pstmt = conn.prepareStatement(sql);
+                guntype = '%'+guntype+'%';
+                pstmt.setString(1,guntype);
+                pstmt.setInt(2, (currentPage - 1) * pageSize);
+                pstmt.setInt(3, pageSize);
+            }
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 Market market = new Market();
@@ -177,31 +195,37 @@ public class MarketDaoImpl implements IMarketDao {
     }
 
     @Override
-    public List<Market> selectByMonney_min_max(int min_much, int max_much,int currentPage,int pageSize) {
-        List<Market> marketList = new ArrayList<>();
-        String sql = "select * from market where price between ? and ? limit ?,?";
+    public Integer selectGunSkinCount(String guntype, String skinname) {
+        int count = 0;
         PreparedStatement pstmt;
         ResultSet rs;
         try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,min_much);
-            pstmt.setInt(2,max_much);
-            pstmt.setInt(3, (currentPage - 1) * pageSize);
-            pstmt.setInt(4, pageSize);
+            if(guntype != null && !"".equals(guntype) && skinname != null && ! "".equals(skinname)){
+                String sql = "select count(*) from market where guntype like ? and skinname like ?";
+                guntype = '%'+guntype+'%';
+                skinname = '%'+skinname+'%';
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,guntype);
+                pstmt.setString(2,skinname);
+            }else if(guntype == null || "".equals(guntype)){
+                String sql = "select count(*) from market where skinname like ?";
+                skinname = '%'+skinname+'%';
+                pstmt = conn.prepareStatement(sql);;
+                pstmt.setString(1,skinname);
+            }else{
+                String sql = "select count(*) from market where guntype like ?";
+                guntype = '%'+guntype+'%';
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,guntype);
+            }
             rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Market market = new Market();
-                market.setId(rs.getInt(1));
-                market.setFrom(rs.getInt(2));
-                market.setGuntype(rs.getString(3));
-                market.setSkinname(rs.getString(4));
-                market.setPrice(rs.getInt(5));
-                marketList.add(market);
+            if (rs.next()) {
+                count = rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("market列表的大小"+marketList.size());
-        return marketList;
+        return count;
     }
+
 }

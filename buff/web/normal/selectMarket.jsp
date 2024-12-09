@@ -2,16 +2,16 @@
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: 50434
-  Date: 2024/12/5
-  Time: 11:34
+  Date: 2024/12/9
+  Time: 23:15
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>市场</title>
+    <title>筛选市场</title>
 </head>
-<body>
+    <body>
     <%
         String sellstatus = (String)session.getAttribute("sellstatus");
         String userid = (String)session.getAttribute("userid");
@@ -65,7 +65,7 @@
                     <button type="button" onclick="if (confirm('确定要购买该物品吗？')) { this.form.submit(); }">购买</button>
                 </form>
                 <%
-                    }else{
+                }else{
                 %>
                 已被管理员禁止交易
                 <%
@@ -94,7 +94,7 @@
     <div>
         <%-- 上一页 --%>
         <% if (currentPage > 1) { %>
-        <form action="<%=request.getContextPath()%>/normal/pagingMarket" method="POST" style="display:inline;">
+        <form action="<%=request.getContextPath()%>/normal/selectMarket" method="POST" style="display:inline;">
             <input type="hidden" name="page" value="<%=currentPage - 1%>">
             <input type="hidden" name="userid" value="<%=userid%>">
             <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
@@ -107,7 +107,7 @@
         <% if (i == currentPage) { %>
         <span><%=i%></span>
         <% } else { %>
-        <form action="<%=request.getContextPath()%>/normal/pagingMarket" method="POST" style="display:inline;">
+        <form action="<%=request.getContextPath()%>/normal/selectMarket" method="POST" style="display:inline;">
             <input type="hidden" name="page" value="<%=i%>">
             <input type="hidden" name="userid" value="<%=userid%>">
             <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
@@ -118,7 +118,7 @@
 
         <%-- 下一页 --%>
         <% if (currentPage < totalPages) { %>
-        <form action="<%=request.getContextPath()%>/normal/pagingMarket" method="POST" style="display:inline;">
+        <form action="<%=request.getContextPath()%>/normal/selectMarket" method="POST" style="display:inline;">
             <input type="hidden" name="page" value="<%=currentPage + 1%>">
             <input type="hidden" name="userid" value="<%=userid%>">
             <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
@@ -135,5 +135,5 @@
     <form action="/buff/login.jsp" method="POST">
         <button type="submit">退出登录</button>
     </form>
-</body>
+    </body>
 </html>
