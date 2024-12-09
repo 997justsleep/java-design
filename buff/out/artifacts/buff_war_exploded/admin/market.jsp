@@ -16,8 +16,8 @@
     <table border="1">
         <thead>
         <tr>
-            <th>序号</th>
-            <th>卖家</th>
+            <th>市场id</th>
+            <th>卖家id</th>
             <th>枪型</th>
             <th>皮肤</th>
             <th>价格</th>
@@ -33,7 +33,7 @@
                     Market market = marketList.get(i);
         %>
         <tr>
-            <td><%=i+1%></td>
+            <td><%=market.getId()%></td>
             <td><%=market.getFrom()%></td>
             <td><%=market.getGuntype()%></td>
             <td><%=market.getSkinname()%></td>
@@ -47,7 +47,7 @@
             }else{
         %>
         <tr>
-            <td colspan="5">暂无数据</td>
+            <td colspan="6">暂无数据</td>
         </tr>
         <%
             }

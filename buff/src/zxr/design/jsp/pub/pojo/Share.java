@@ -2,14 +2,16 @@ package zxr.design.jsp.pub.pojo;
 
 public class Share {
     private Integer id;
+    private Integer userid;
     private String username;
-    String time;
-    String content;
+    private String time;
+    private String content;
 
     public Share() {
     }
 
-    public Share(String username, String time, String content) {
+    public Share(Integer userid, String username, String time, String content) {
+        this.userid = userid;
         this.username = username;
         this.time = time;
         this.content = content;
@@ -25,6 +27,14 @@ public class Share {
 
     public String getUsername() {
         return username;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public void setUsername(String username) {

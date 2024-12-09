@@ -50,7 +50,7 @@
         }else{
         %>
         <tr>
-            <td colspan="5">暂无数据</td>
+            <td colspan="7">暂无数据</td>
         </tr>
         <%
             }

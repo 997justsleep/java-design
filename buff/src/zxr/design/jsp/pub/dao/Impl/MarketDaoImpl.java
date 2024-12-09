@@ -83,4 +83,67 @@ public class MarketDaoImpl implements IMarketDao {
         }
         return count;
     }
+
+    @Override
+    public Boolean inserMarket(Market market) {
+        String sql = "insert into market(come,guntype,skinname,price) values(?,?,?,?)";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,market.getFrom());
+            pstmt.setString(2,market.getGuntype());
+            pstmt.setString(3,market.getSkinname());
+            pstmt.setDouble(4,market.getPrice());
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Market selectBySome(int from, String guntype, String skinname) {
+        String sql = "select * from market where come = ? and guntype = ? and skinname = ?";
+        PreparedStatement pstmt;
+        ResultSet rs;
+        Market market = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, from);
+            pstmt.setString(2, guntype);
+            pstmt.setString(3, skinname);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                market = new Market();
+                market.setId(rs.getInt(1));
+                market.setFrom(rs.getInt(2));
+                market.setGuntype(rs.getString(3));
+                market.setSkinname(rs.getString(4));
+                market.setPrice(rs.getDouble(5));
+                System.out.println("market属性 "+market.toString());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return market;
+    }
+
+    @Override
+    public Boolean deleteByid(int id) {
+        String sql = "delete from market where id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,id);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }

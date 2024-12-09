@@ -17,6 +17,7 @@
         <thead>
         <tr>
             <th>序号</th>
+            <th>用户id</th>
             <th>用户名</th>
             <th>时间</th>
             <th>内容</th>
@@ -32,6 +33,7 @@
         %>
         <tr>
             <td><%=i+1%></td>
+            <td><%=share.getUserid()%></td>
             <td><%=share.getUsername()%></td>
             <td><%=share.getTime()%></td>
             <td><%=share.getContent()%></td>
@@ -44,7 +46,7 @@
         }else{
         %>
         <tr>
-            <td colspan="4">暂无交易数据</td>
+            <td colspan="5">暂无交易数据</td>
         </tr>
         <%
             }

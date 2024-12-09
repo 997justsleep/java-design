@@ -1,5 +1,7 @@
 package zxr.design.jsp.normal.servlet;
 
+import zxr.design.jsp.normal.service.IInventoryService;
+import zxr.design.jsp.normal.service.impl.InventoryServiceImpl;
 import zxr.design.jsp.pub.dao.Impl.InventoryDaoImpl;
 import zxr.design.jsp.pub.pojo.Inventory;
 
@@ -34,13 +36,13 @@ public class PageInventoryServlet extends HttpServlet {
                 System.out.println("获取页数失败");
             }
         }
+        IInventoryService iInventoryService = new InventoryServiceImpl();
+        List<Inventory> invenList =iInventoryService.getMineInventory(id, currentPage, PAGE_SIZE);
 
-        List<Inventory> invenList = InventoryDaoImpl.getInstance().selectMine(id, currentPage, PAGE_SIZE);
-
-        int totalCount = InventoryDaoImpl.getInstance().getTotalInventoryCount(id);
+        int totalCount = iInventoryService.getTotalPage(id);
         int totalPages = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE; // 计算总页数
         System.out.println("totalCount: "+totalCount+",totalPages: "+totalPages);
-
+        req.setAttribute("userid",userid);
         req.setAttribute("invenList", invenList);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("totalPages", totalPages);

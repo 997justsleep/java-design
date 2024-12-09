@@ -20,6 +20,7 @@
             <th>序号</th>
             <th>枪型</th>
             <th>皮肤</th>
+            <th>在售</th>
             <th>市场</th>
             <th>操作</th>
         </tr>
@@ -35,11 +36,12 @@
             <td><%=i+1%></td>
             <td><%=inventory.getGuntype()%></td>
             <td><%=inventory.getSkinname()%></td>
+            <td><%=inventory.getSelling()%></td>
             <td>
                 <a href="#">查看该皮肤市场</a>
             </td>
             <td>
-                <a href="#" onclick="return confirm('确定要上架该物品吗？')">上架</a>
+                <a href="/buff/normal/queryByid?id=<%=inventory.getId()%>&page=<%=(int)request.getAttribute("currentPage")%>">设置上架状态</a>
             </td>
 
         </tr>
@@ -48,7 +50,7 @@
         }else{
         %>
         <tr>
-            <td colspan="3">暂无数据</td>
+            <td colspan="5">暂无数据</td>
         </tr>
         <%
             }
@@ -58,22 +60,23 @@
 
     <br />
     <%
+        String userid = (String)request.getAttribute("userid");
         int currentPage = (int) request.getAttribute("currentPage");
         int totalPages = (int) request.getAttribute("totalPages");
     %>
     <div>
         <% if (currentPage > 1) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=currentPage - 1%>">上一页</a>
+        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=currentPage - 1%>&userid=<%=userid%>">上一页</a>
         <% } %>
         <% for (int i = 1; i <= totalPages; i++) { %>
         <% if (i == currentPage) { %>
         <span><%=i%></span>
         <% } else { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=i%>"><%=i%></a>
+        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=i%>&userid=<%=userid%>"><%=i%></a>
         <% } %>
         <% } %>
         <% if (currentPage < totalPages) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=currentPage + 1%>">下一页</a>
+        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=currentPage + 1%>&userid=<%=userid%>">下一页</a>
         <% } %>
     </div>
 

@@ -1,9 +1,11 @@
 package zxr.design.jsp.pub.pojo;
 
 public class Inventory {
+    Integer id;
     String guntype;
     String skinname;
     Integer belong;
+    String selling;
 
     public Inventory() {
     }
@@ -14,20 +16,27 @@ public class Inventory {
         this.belong = belong;
     }
 
+    public Inventory(String guntype, String skinname, Integer belong, String selling) {
+        this.guntype = guntype;
+        this.skinname = skinname;
+        this.belong = belong;
+        this.selling = selling;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getSkinname() {
         return skinname;
     }
 
     public void setSkinname(String skinname) {
         this.skinname = skinname;
-    }
-
-    public int getBelong() {
-        return belong;
-    }
-
-    public void setBelong(int belong) {
-        this.belong = belong;
     }
 
     public String getGuntype() {
@@ -38,12 +47,30 @@ public class Inventory {
         this.guntype = guntype;
     }
 
+    public Integer getBelong() {
+        return belong;
+    }
+
+    public void setBelong(Integer belong) {
+        this.belong = belong;
+    }
+
+    public String getSelling() {
+        return selling;
+    }
+
+    public void setSelling(String selling) {
+        this.selling = selling;
+    }
+
     @Override
     public String toString() {
         return "Inventory{" +
-                "guntype='" + guntype + '\'' +
+                "id=" + id +
+                ", guntype='" + guntype + '\'' +
                 ", skinname='" + skinname + '\'' +
                 ", belong=" + belong +
+                ", selling='" + selling + '\'' +
                 '}';
     }
 }

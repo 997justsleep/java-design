@@ -45,12 +45,12 @@
         <input type="hidden" name="sellstatus" value="<%= user.getSellstatus() %>">
         <button type="submit">我的出售记录</button>
     </form>
-
     <br/>
     <br/>
     <br/>
-    <br/>
-    <a href="/buff/login.jsp">退出登录</a><br/>
+    <form action="/buff/login.jsp" method="POST">
+        <button type="submit">退出登录</button>
+    </form>
 
 </body>
 </html>

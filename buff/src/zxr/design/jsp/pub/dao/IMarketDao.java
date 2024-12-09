@@ -7,4 +7,7 @@ import java.util.List;
 public interface IMarketDao {
     List<Market> selectAll(int currentPage, int pageSize);
     Integer getTotalMarketCount();
+    Boolean inserMarket(Market market);
+    Market selectBySome(int from,String guntype,String skinname);
+    Boolean deleteByid(int id);
 }
