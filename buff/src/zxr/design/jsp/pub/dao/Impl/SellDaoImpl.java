@@ -58,7 +58,7 @@ public class SellDaoImpl implements ISellDao {
                 sell.setTo(rs.getInt(3));
                 sell.setGuntype(rs.getString(4));
                 sell.setSkinname(rs.getString(5));
-                sell.setMoney(rs.getDouble(6));
+                sell.setMoney(rs.getInt(6));
                 sellList.add(sell);
             }
         } catch (SQLException e) {
@@ -106,7 +106,7 @@ public class SellDaoImpl implements ISellDao {
                 sell.setTo(rs.getInt(3));
                 sell.setGuntype(rs.getString(4));
                 sell.setSkinname(rs.getString(5));
-                sell.setMoney(rs.getDouble(6));
+                sell.setMoney(rs.getInt(6));
                 sellList.add(sell);
             }
         } catch (SQLException e) {
@@ -133,5 +133,25 @@ public class SellDaoImpl implements ISellDao {
             e.printStackTrace();
         }
         return count;
+    }
+
+    @Override
+    public Boolean insertNew(Sell sell) {
+        String sql = "insert into sell(come,arrive,guntype,skinname,money) values(?,?,?,?,?)";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,sell.getFrom());
+            pstmt.setInt(2,sell.getTo());
+            pstmt.setString(3,sell.getGuntype());
+            pstmt.setString(4,sell.getSkinname());
+            pstmt.setInt(5,sell.getMoney());
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

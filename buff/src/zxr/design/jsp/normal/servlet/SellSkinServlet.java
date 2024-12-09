@@ -31,7 +31,7 @@ public class SellSkinServlet extends HttpServlet {
             String price = req.getParameter("price");
             Market market = new Market();
             market.setFrom(Integer.parseInt(from));
-            market.setPrice(Double.parseDouble(price));
+            market.setPrice(Integer.parseInt(price));
             market.setGuntype(guntype);
             market.setSkinname(skin);
             IInventoryService iInventoryService = new InventoryServiceImpl();

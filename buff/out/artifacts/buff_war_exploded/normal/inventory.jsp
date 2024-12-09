@@ -28,6 +28,7 @@
         <tbody>
         <%
             List<Inventory> invenList = (List<Inventory>) session.getAttribute("invenList");
+            String sellstatus = (String)session.getAttribute("sellstatus");
             if(invenList != null && !invenList.isEmpty()){
                 for (int i = 0; i < invenList.size(); i++) {
                     Inventory inventory = invenList.get(i);
@@ -41,7 +42,17 @@
                 <a href="#">查看该皮肤市场</a>
             </td>
             <td>
+                <%
+                    if("true".equals(sellstatus)){
+                %>
                 <a href="/buff/normal/queryByid?id=<%=inventory.getId()%>">设置上架状态</a>
+                <%
+                    }else{
+                %>
+                已被管理员禁止交易
+                <%
+                    }
+                %>
             </td>
 
         </tr>
@@ -65,18 +76,38 @@
         int totalPages = (int) session.getAttribute("totalPages");
     %>
     <div>
+        <%-- 上一页 --%>
         <% if (currentPage > 1) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=currentPage - 1%>&userid=<%=userid%>">上一页</a>
+        <form action="<%=request.getContextPath()%>/normal/pagingInventory" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage - 1%>">
+            <input type="hidden" name="userid" value="<%=userid%>">
+            <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
+            <input type="submit" value="上一页">
+        </form>
         <% } %>
+
+        <%-- 页码 --%>
         <% for (int i = 1; i <= totalPages; i++) { %>
         <% if (i == currentPage) { %>
         <span><%=i%></span>
         <% } else { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=i%>&userid=<%=userid%>"><%=i%></a>
+        <form action="<%=request.getContextPath()%>/normal/pagingInventory" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=i%>">
+            <input type="hidden" name="userid" value="<%=userid%>">
+            <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
+            <input type="submit" value="<%=i%>">
+        </form>
         <% } %>
         <% } %>
+
+        <%-- 下一页 --%>
         <% if (currentPage < totalPages) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingInventory?page=<%=currentPage + 1%>&userid=<%=userid%>">下一页</a>
+        <form action="<%=request.getContextPath()%>/normal/pagingInventory" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage + 1%>">
+            <input type="hidden" name="userid" value="<%=userid%>">
+            <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
+            <input type="submit" value="下一页">
+        </form>
         <% } %>
     </div>
 

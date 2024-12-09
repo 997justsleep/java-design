@@ -5,12 +5,12 @@ public class Market {
     Integer from;
     String guntype;
     String skinname;
-    Double price;
+    Integer price;
 
     public Market() {
     }
 
-    public Market(int from, String guntype, String skinname, double price) {
+    public Market(int from, String guntype, String skinname, int price) {
         this.from = from;
         this.guntype = guntype;
         this.skinname = skinname;
@@ -49,18 +49,19 @@ public class Market {
         this.skinname = skinname;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
         return "Market{" +
-                "from=" + from +
+                "id=" + id +
+                ", from=" + from +
                 ", guntype='" + guntype + '\'' +
                 ", skinname='" + skinname + '\'' +
                 ", price=" + price +

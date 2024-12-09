@@ -12,5 +12,4 @@ public interface IInventoryService {
     boolean unsellSkin(int invenid,int from ,String guntype,String skinname);
     int getTotalPage(int id);
     Inventory selectSkinByid(int id);
-
 }

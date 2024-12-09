@@ -56,7 +56,7 @@ public class MarketDaoImpl implements IMarketDao {
                 market.setFrom(rs.getInt(2));
                 market.setGuntype(rs.getString(3));
                 market.setSkinname(rs.getString(4));
-                market.setPrice(rs.getDouble(5));
+                market.setPrice(rs.getInt(5));
                 marketList.add(market);
             }
         } catch (SQLException e) {
@@ -121,7 +121,7 @@ public class MarketDaoImpl implements IMarketDao {
                 market.setFrom(rs.getInt(2));
                 market.setGuntype(rs.getString(3));
                 market.setSkinname(rs.getString(4));
-                market.setPrice(rs.getDouble(5));
+                market.setPrice(rs.getInt(5));
                 System.out.println("market属性 "+market.toString());
             }
         } catch (SQLException e) {
@@ -145,5 +145,63 @@ public class MarketDaoImpl implements IMarketDao {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<Market> selectByGun_skin(String guntype, String skinname,int currentPage,int pageSize) {
+        List<Market> marketList = new ArrayList<>();
+        String sql = "select * from market where guntype = ? and skinname = ? limit ?,?";
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,guntype);
+            pstmt.setString(2,skinname);
+            pstmt.setInt(3, (currentPage - 1) * pageSize);
+            pstmt.setInt(4, pageSize);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Market market = new Market();
+                market.setId(rs.getInt(1));
+                market.setFrom(rs.getInt(2));
+                market.setGuntype(rs.getString(3));
+                market.setSkinname(rs.getString(4));
+                market.setPrice(rs.getInt(5));
+                marketList.add(market);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("market列表的大小"+marketList.size());
+        return marketList;
+    }
+
+    @Override
+    public List<Market> selectByMonney_min_max(int min_much, int max_much,int currentPage,int pageSize) {
+        List<Market> marketList = new ArrayList<>();
+        String sql = "select * from market where price between ? and ? limit ?,?";
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,min_much);
+            pstmt.setInt(2,max_much);
+            pstmt.setInt(3, (currentPage - 1) * pageSize);
+            pstmt.setInt(4, pageSize);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Market market = new Market();
+                market.setId(rs.getInt(1));
+                market.setFrom(rs.getInt(2));
+                market.setGuntype(rs.getString(3));
+                market.setSkinname(rs.getString(4));
+                market.setPrice(rs.getInt(5));
+                marketList.add(market);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("market列表的大小"+marketList.size());
+        return marketList;
     }
 }

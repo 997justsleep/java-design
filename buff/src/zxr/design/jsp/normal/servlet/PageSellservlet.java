@@ -41,9 +41,9 @@ public class PageSellservlet extends HttpServlet {
         int totalPages = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE; // 计算总页数
         System.out.println("totalCount: "+totalCount+",totalPages: "+totalPages);
 
-        req.setAttribute("sellList", List);
-        req.setAttribute("currentPage", currentPage);
-        req.setAttribute("totalPages", totalPages);
+        req.getSession().setAttribute("sellList", List);
+        req.getSession().setAttribute("currentPage", currentPage);
+        req.getSession().setAttribute("totalPages", totalPages);
 
         req.getRequestDispatcher("sell.jsp").forward(req, resp);
     }

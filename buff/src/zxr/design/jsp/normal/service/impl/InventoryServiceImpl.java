@@ -1,7 +1,6 @@
 package zxr.design.jsp.normal.service.impl;
 
 import zxr.design.jsp.normal.service.IInventoryService;
-import zxr.design.jsp.pub.dao.IInventoryDao;
 import zxr.design.jsp.pub.dao.Impl.InventoryDaoImpl;
 import zxr.design.jsp.pub.dao.Impl.MarketDaoImpl;
 import zxr.design.jsp.pub.pojo.Inventory;

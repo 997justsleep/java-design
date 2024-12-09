@@ -9,4 +9,7 @@ public interface IInventoryDao {
     Integer getTotalInventoryCount(int id);
     Inventory selectByid(int id);
     boolean updateSelling(int id,String status);
+    boolean insertNew(Inventory inventory);
+    boolean updateBelong_sellstatus(int belong,int id);
+    Inventory selectBysome(String guntype,String skinname,int belong,String sellsatus);
 }

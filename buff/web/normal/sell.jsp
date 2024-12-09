@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         <%
-            List<Sell> sellList = (List<Sell>) request.getAttribute("sellList");
+            List<Sell> sellList = (List<Sell>) session.getAttribute("sellList");
             if(sellList != null && !sellList.isEmpty()){
                 for (int i = 0; i < 10; i++) {
                     Sell sell = sellList.get(i);
@@ -55,8 +55,8 @@
 
     <br />
     <%
-        int currentPage = (int) request.getAttribute("currentPage");
-        int totalPages = (int) request.getAttribute("totalPages");
+        int currentPage = (int) session.getAttribute("currentPage");
+        int totalPages = (int) session.getAttribute("totalPages");
     %>
 
     <div>

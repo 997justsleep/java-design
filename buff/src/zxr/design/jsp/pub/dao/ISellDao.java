@@ -9,4 +9,5 @@ public interface ISellDao {
     Integer getTotalSellCount();
     List<Sell> selectMine(int id,int currentPage,int pageSize);
     Integer getMineTotalSellCount(int id);
+    Boolean insertNew(Sell sell);
 }

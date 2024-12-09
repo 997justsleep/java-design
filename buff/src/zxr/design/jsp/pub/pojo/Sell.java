@@ -6,12 +6,12 @@ public class Sell {
     Integer to;
     String guntype;
     String skinname;
-    Double money;
+    Integer money;
 
     public Sell() {
     }
 
-    public Sell(int from, int to, String guntype, String skinname, double money) {
+    public Sell(int from, int to, String guntype, String skinname, int money) {
         this.from = from;
         this.to = to;
         this.guntype = guntype;
@@ -59,11 +59,11 @@ public class Sell {
         this.skinname = skinname;
     }
 
-    public Double getMoney() {
+    public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(Integer money) {
         this.money = money;
     }
 

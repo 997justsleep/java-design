@@ -27,6 +27,7 @@ public class PageInventoryServlet extends HttpServlet {
         int currentPage = 1; // 默认当前页码为1
         String pageParam = req.getParameter("page");
         String userid = req.getParameter("userid");
+        String sellstatus = req.getParameter("sellstatus");
         Integer id = Integer.parseInt(userid);
         if (pageParam!= null &&!pageParam.isEmpty()) {
             try {
@@ -43,10 +44,10 @@ public class PageInventoryServlet extends HttpServlet {
         int totalPages = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE; // 计算总页数
         System.out.println("totalCount: "+totalCount+",totalPages: "+totalPages);
         req.getSession().setAttribute("userid",userid);
+        req.getSession().setAttribute("sellstatus",sellstatus);
         req.getSession().setAttribute("invenList", invenList);
         req.getSession().setAttribute("currentPage", currentPage);
         req.getSession().setAttribute("totalPages", totalPages);
-
         req.getRequestDispatcher("inventory.jsp").forward(req, resp);
     }
 }

@@ -2,6 +2,7 @@ package zxr.design.jsp.pub.dao.Impl;
 
 import zxr.design.jsp.pub.dao.IInventoryDao;
 import zxr.design.jsp.pub.pojo.Inventory;
+import zxr.design.jsp.pub.pojo.Market;
 
 import java.sql.*;
 import java.sql.SQLException;
@@ -127,5 +128,65 @@ public class InventoryDaoImpl implements IInventoryDao {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean insertNew(Inventory inventory) {
+        String sql = "insert into inventory()";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateBelong_sellstatus(int belong,int id) {
+        String sql = "update inventory set selling = 'false',belong = ? where id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,belong);
+            pstmt.setInt(2,id);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Inventory selectBysome(String guntype, String skinname, int belong, String sellsatus) {
+        String sql = "select * from inventory where guntype = ? and skinname = ? and belong = ? and selling = ?";
+        PreparedStatement pstmt;
+        ResultSet rs;
+        Inventory inventory = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,guntype );
+            pstmt.setString(2, skinname);
+            pstmt.setInt(3, belong);
+            pstmt.setString(4, sellsatus);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                inventory = new Inventory();
+                inventory.setId(rs.getInt(1));
+                inventory.setGuntype(rs.getString(2));
+                inventory.setSkinname(rs.getString(3));
+                inventory.setBelong(rs.getInt(4));
+                inventory.setSelling(rs.getString(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return inventory;
     }
 }

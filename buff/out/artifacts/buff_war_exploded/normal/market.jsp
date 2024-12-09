@@ -20,14 +20,15 @@
             <th>卖家</th>
             <th>枪型</th>
             <th>皮肤</th>
-            <th>价格</th>
+            <th>价格/元</th>
             <th>操作</th>
-            <th>追踪</th>
         </tr>
         </thead>
         <tbody>
         <%
-            List<Market> marketList = (List<Market>) request.getAttribute("marketList");
+            List<Market> marketList = (List<Market>) session.getAttribute("marketList");
+            String sellstatus = (String)session.getAttribute("sellstatus");
+            String userid = (String)session.getAttribute("userid");
             if(marketList != null && !marketList.isEmpty()){
                 for (int i = 0; i < marketList.size(); i++) {
                     Market market = marketList.get(i);
@@ -39,10 +40,26 @@
             <td><%=market.getSkinname()%></td>
             <td><%=market.getPrice()%></td>
             <td>
-                <a href="#" onclick="return confirm('确定要购买该物品吗？')">购买</a>
-            </td>
-            <td>
-                <a href="#">查看该用户其他上架物品</a>
+                <%
+                    if("true".equals(sellstatus)){
+                %>
+                <form action="/buff/normal/buySkin" method="POST">
+                    <input type="hidden" name="userid" value="<%= userid %>">
+                    <input type="hidden" name="sellstatus" value="<%= sellstatus %>">
+                    <input type="hidden" name="marketid" value="<%= market.getId() %>">
+                    <input type="hidden" name="marketfrom" value="<%= market.getFrom() %>">
+                    <input type="hidden" name="marketguntype" value="<%= market.getGuntype() %>">
+                    <input type="hidden" name="marketskinname" value="<%= market.getSkinname() %>">
+                    <input type="hidden" name="marketprice" value="<%= market.getPrice() %>">
+                    <button type="button" onclick="if (confirm('确定要购买该物品吗？')) { this.form.submit(); }">购买</button>
+                </form>
+                <%
+                    }else{
+                %>
+                已被管理员禁止交易
+                <%
+                    }
+                %>
             </td>
         </tr>
         <%
@@ -50,7 +67,7 @@
         }else{
         %>
         <tr>
-            <td colspan="7">暂无数据</td>
+            <td colspan="6">暂无数据</td>
         </tr>
         <%
             }
@@ -60,22 +77,42 @@
 
     <br />
     <%
-        int currentPage = (int) request.getAttribute("currentPage");
-        int totalPages = (int) request.getAttribute("totalPages");
+        int currentPage = (int) session.getAttribute("currentPage");
+        int totalPages = (int) session.getAttribute("totalPages");
     %>
     <div>
+        <%-- 上一页 --%>
         <% if (currentPage > 1) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingMarket?page=<%=currentPage - 1%>">上一页</a>
+        <form action="<%=request.getContextPath()%>/normal/pagingMarket" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage - 1%>">
+            <input type="hidden" name="userid" value="<%=userid%>">
+            <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
+            <input type="submit" value="上一页">
+        </form>
         <% } %>
+
+        <%-- 页码 --%>
         <% for (int i = 1; i <= totalPages; i++) { %>
         <% if (i == currentPage) { %>
         <span><%=i%></span>
         <% } else { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingMarket?page=<%=i%>"><%=i%></a>
+        <form action="<%=request.getContextPath()%>/normal/pagingMarket" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=i%>">
+            <input type="hidden" name="userid" value="<%=userid%>">
+            <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
+            <input type="submit" value="<%=i%>">
+        </form>
         <% } %>
         <% } %>
+
+        <%-- 下一页 --%>
         <% if (currentPage < totalPages) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingMarket?page=<%=currentPage + 1%>">下一页</a>
+        <form action="<%=request.getContextPath()%>/normal/pagingMarket" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage + 1%>">
+            <input type="hidden" name="userid" value="<%=userid%>">
+            <input type="hidden" name="sellstatus" value="<%=sellstatus%>">
+            <input type="submit" value="下一页">
+        </form>
         <% } %>
     </div>
 
