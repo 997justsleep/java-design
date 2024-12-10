@@ -43,7 +43,7 @@
     <form action="/buff/normal/pagingSell" method="POST">
         <input type="hidden" name="userid" value="<%= user.getId() %>">
         <input type="hidden" name="sellstatus" value="<%= user.getSellstatus() %>">
-        <button type="submit">我的出售记录</button>
+        <button type="submit">我的交易记录</button>
     </form>
     <br/>
     <br/>

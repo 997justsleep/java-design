@@ -1,5 +1,7 @@
 package zxr.design.jsp.admin.servlet;
 
+import zxr.design.jsp.normal.service.IMarketService;
+import zxr.design.jsp.normal.service.impl.MarketServiceImpl;
 import zxr.design.jsp.pub.dao.Impl.MarketDaoImpl;
 import zxr.design.jsp.pub.pojo.Market;
 
@@ -22,8 +24,11 @@ public class PageMarketServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
         int currentPage = 1; // 默认当前页码为1
         String pageParam = req.getParameter("page");
+        String sellstatus = req.getParameter("sellstatus");
         if (pageParam!= null &&!pageParam.isEmpty()) {
             try {
                 currentPage = Integer.parseInt(pageParam);
@@ -33,15 +38,18 @@ public class PageMarketServlet extends HttpServlet {
             }
         }
 
-        List<Market> List = MarketDaoImpl.getInstance().selectAll(currentPage, PAGE_SIZE);
+        IMarketService iMarketService = new MarketServiceImpl();
+        List<Market> List = iMarketService.getAllMarket(currentPage, PAGE_SIZE);
 
-        int totalCount = MarketDaoImpl.getInstance().getTotalMarketCount();
+        int totalCount = iMarketService.getTotalMarketCount();
         int totalPages = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE; // 计算总页数
         System.out.println("totalCount: "+totalCount+",totalPages: "+totalPages);
 
-        req.setAttribute("marketList", List);
-        req.setAttribute("currentPage", currentPage);
-        req.setAttribute("totalPages", totalPages);
+        req.getSession().setAttribute("marketList", List);
+        req.getSession().setAttribute("currentPage", currentPage);
+        req.getSession().setAttribute("totalPages", totalPages);
+        req.getSession().setAttribute("sellstatus",sellstatus);
+        req.getSession().setAttribute("userid",req.getParameter("userid"));
 
         req.getRequestDispatcher("market.jsp").forward(req, resp);
     }

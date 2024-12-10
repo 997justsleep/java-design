@@ -16,7 +16,7 @@
     <table border="1">
         <thead>
         <tr>
-            <th>序号</th>
+            <th>用户id</th>
             <th>用户名</th>
             <th>身份</th>
             <th>交易状态</th>
@@ -25,18 +25,21 @@
         </thead>
         <tbody>
         <%
-            List<User> userList = (List<User>) request.getAttribute("userList");
+            List<User> userList = (List<User>) session.getAttribute("userList");
             if (userList!= null &&!userList.isEmpty()) {
                 for (int i = 0; i < userList.size(); i++) {
                     User user1 = userList.get(i);
         %>
         <tr>
-            <td><%=i + 1%></td>
+            <td><%=user1.getId()%></td>
             <td><%=user1.getUsername()%></td>
             <td><%=user1.getAtrribute()%></td>
             <td><%=user1.getSellstatus()%></td>
             <td>
-                <a href="#">设置交易状态</a>
+                <form action="/buff/admin/querybyid" method="POST">
+                    <input type="hidden" name="userid" value="<%= user1.getId() %>">
+                    <button type="submit">设置交易状态</button>
+                </form>
             </td>
         </tr>
         <%
@@ -54,22 +57,36 @@
 
     <br />
     <%
-        int currentPage = (int) request.getAttribute("currentPage");
-        int totalPages = (int) request.getAttribute("totalPages");
+        int currentPage = (int) session.getAttribute("currentPage");
+        int totalPages = (int) session.getAttribute("totalPages");
     %>
     <div>
+        <%-- 上一页 --%>
         <% if (currentPage > 1) { %>
-        <a href="<%=request.getContextPath()%>/admin/pagingUser?page=<%=currentPage - 1%>">上一页</a>
+        <form action="<%=request.getContextPath()%>/admin/pagingUser" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage - 1%>">
+            <input type="submit" value="上一页">
+        </form>
         <% } %>
+
+        <%-- 页码 --%>
         <% for (int i = 1; i <= totalPages; i++) { %>
         <% if (i == currentPage) { %>
         <span><%=i%></span>
         <% } else { %>
-        <a href="<%=request.getContextPath()%>/admin/pagingUser?page=<%=i%>"><%=i%></a>
+        <form action="<%=request.getContextPath()%>/admin/pagingUser" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=i%>">
+            <input type="submit" value="<%=i%>">
+        </form>
         <% } %>
         <% } %>
+
+        <%-- 下一页 --%>
         <% if (currentPage < totalPages) { %>
-        <a href="<%=request.getContextPath()%>/admin/pagingUser?page=<%=currentPage + 1%>">下一页</a>
+        <form action="<%=request.getContextPath()%>/admin/pagingUser" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage + 1%>">
+            <input type="submit" value="下一页">
+        </form>
         <% } %>
     </div>
     <form action="./adminMain.jsp" method="POST">

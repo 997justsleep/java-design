@@ -29,7 +29,7 @@
         <%
             List<Sell> sellList = (List<Sell>) session.getAttribute("sellList");
             if(sellList != null && !sellList.isEmpty()){
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < sellList.size(); i++) {
                     Sell sell = sellList.get(i);
         %>
         <tr>
@@ -60,18 +60,32 @@
     %>
 
     <div>
+        <%-- 上一页 --%>
         <% if (currentPage > 1) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingSell?page=<%=currentPage - 1%>">上一页</a>
+        <form action="<%=request.getContextPath()%>/normal/pagingSell" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage - 1%>">
+            <input type="submit" value="上一页">
+        </form>
         <% } %>
+
+        <%-- 页码 --%>
         <% for (int i = 1; i <= totalPages; i++) { %>
         <% if (i == currentPage) { %>
         <span><%=i%></span>
         <% } else { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingSell?page=<%=i%>"><%=i%></a>
+        <form action="<%=request.getContextPath()%>/normal/pagingSell" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=i%>">
+            <input type="submit" value="<%=i%>">
+        </form>
         <% } %>
         <% } %>
+
+        <%-- 下一页 --%>
         <% if (currentPage < totalPages) { %>
-        <a href="<%=request.getContextPath()%>/normal/pagingSell?page=<%=currentPage + 1%>">下一页</a>
+        <form action="<%=request.getContextPath()%>/normal/pagingSell" method="POST" style="display:inline;">
+            <input type="hidden" name="page" value="<%=currentPage + 1%>">
+            <input type="submit" value="下一页">
+        </form>
         <% } %>
     </div>
     <form action="./normalMain.jsp" method="POST">

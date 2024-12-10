@@ -228,4 +228,19 @@ public class MarketDaoImpl implements IMarketDao {
         return count;
     }
 
+    @Override
+    public Boolean deleteByFrom(int fromid) {
+        String sql = "delete from market where come = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,fromid);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }

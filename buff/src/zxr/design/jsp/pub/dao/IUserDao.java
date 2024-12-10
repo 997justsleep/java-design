@@ -9,4 +9,6 @@ public interface IUserDao {
     Boolean registUser(User user);
     List<User> selectAll(int currentPage, int pageSize);
     Integer getTotalUserCount();
+    User selectByUserid(int id);
+    Boolean updateSellStatus(int id,String status);
 }

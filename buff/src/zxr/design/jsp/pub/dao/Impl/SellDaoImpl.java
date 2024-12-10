@@ -89,7 +89,7 @@ public class SellDaoImpl implements ISellDao {
     @Override
     public List<Sell> selectMine(int id, int currentPage, int pageSize) {
         List<Sell> sellList = new ArrayList<>();
-        String sql = "select * from sell where from = ? or to = ? limit ?,?";
+        String sql = "select * from sell where come = ? or arrive = ? limit ?,?";
         PreparedStatement pstmt;
         ResultSet rs;
         try {
@@ -122,7 +122,7 @@ public class SellDaoImpl implements ISellDao {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            String sql = "select count(*) from sell where from = ? or to = id";
+            String sql = "select count(*) from sell where come = ? or arrive = id";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,id);
             rs = pstmt.executeQuery();

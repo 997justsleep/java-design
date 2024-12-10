@@ -154,4 +154,46 @@ public class UserDaoImpl implements IUserDao {
         }
         return count;
     }
+
+    @Override
+    public User selectByUserid(int id) {
+        String sql = "select * from user where id = ?";
+        User ansuser = new User();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,id);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                ansuser.setId(rs.getInt(1));
+                ansuser.setUsername(rs.getString(2));
+                ansuser.setPassword(rs.getString(3));
+                ansuser.setAtrribute(rs.getString(4));
+                ansuser.setSellstatus(rs.getString(5));
+                System.out.println(ansuser.toString());
+                return ansuser;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Boolean updateSellStatus(int id, String status) {
+        String sql = "update user set sellstatus = ? where id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,status);
+            pstmt.setInt(2,id);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                System.out.println("执行成功");
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
 }

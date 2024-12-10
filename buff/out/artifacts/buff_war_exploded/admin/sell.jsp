@@ -29,7 +29,7 @@
         <%
             List<Sell> sellList = (List<Sell>) request.getAttribute("sellList");
             if(sellList != null && !sellList.isEmpty()){
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < sellList.size(); i++) {
                     Sell sell = sellList.get(i);
         %>
         <tr>

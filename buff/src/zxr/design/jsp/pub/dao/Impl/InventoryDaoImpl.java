@@ -182,11 +182,30 @@ public class InventoryDaoImpl implements IInventoryDao {
                 inventory.setSkinname(rs.getString(3));
                 inventory.setBelong(rs.getInt(4));
                 inventory.setSelling(rs.getString(5));
+                System.out.println(inventory.toString());
             }
         } catch (SQLException e) {
+            System.out.println("数据库连接异常");
             e.printStackTrace();
         }
 
         return inventory;
+    }
+
+    @Override
+    public Boolean updateSellingBybelong(int belong, String status) {
+        String sql = "update inventory set selling = ? where belong = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,status);
+            pstmt.setInt(2,belong);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {//检查受影响的条数
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

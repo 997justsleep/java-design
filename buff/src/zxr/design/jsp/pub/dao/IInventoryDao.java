@@ -12,4 +12,5 @@ public interface IInventoryDao {
     boolean insertNew(Inventory inventory);
     boolean updateBelong_sellstatus(int belong,int id);
     Inventory selectBysome(String guntype,String skinname,int belong,String sellsatus);
+    Boolean updateSellingBybelong(int belong,String status);
 }

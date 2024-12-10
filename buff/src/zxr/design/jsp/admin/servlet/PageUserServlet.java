@@ -22,6 +22,8 @@ public class PageUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
         int currentPage = 1; // 默认当前页码为1
         String pageParam = req.getParameter("page");
         if (pageParam!= null &&!pageParam.isEmpty()) {
@@ -39,9 +41,9 @@ public class PageUserServlet extends HttpServlet {
         int totalPages = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE; // 计算总页数
         System.out.println("totalCount: "+totalCount+",totalPages: "+totalPages);
         
-        req.setAttribute("userList", userList);
-        req.setAttribute("currentPage", currentPage);
-        req.setAttribute("totalPages", totalPages);
+        req.getSession().setAttribute("userList", userList);
+        req.getSession().setAttribute("currentPage", currentPage);
+        req.getSession().setAttribute("totalPages", totalPages);
 
         req.getRequestDispatcher("alluser.jsp").forward(req, resp);
     }
