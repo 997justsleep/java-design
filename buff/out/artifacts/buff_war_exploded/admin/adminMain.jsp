@@ -27,9 +27,9 @@
         <input type="hidden" name="username" value="<%= user.getUsername() %>">
         <button type="submit">查看出售记录</button>
     </form>
-    <form action="/buff/admin/pagingShare" method="POST">
+    <form action="/buff/admin/pagingEvaluation" method="POST">
         <input type="hidden" name="username" value="<%= user.getUsername() %>">
-        <button type="submit">玩家秀</button>
+        <button type="submit">交易评价</button>
     </form>
     <br/>
     <br/>

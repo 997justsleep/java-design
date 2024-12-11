@@ -2,7 +2,6 @@ package zxr.design.jsp.normal.servlet;
 
 import zxr.design.jsp.normal.service.IInventoryService;
 import zxr.design.jsp.normal.service.impl.InventoryServiceImpl;
-import zxr.design.jsp.pub.dao.Impl.InventoryDaoImpl;
 import zxr.design.jsp.pub.pojo.Inventory;
 
 import javax.servlet.ServletException;

@@ -22,12 +22,15 @@
             <th>枪型</th>
             <th>皮肤名</th>
             <th>交易价格</th>
+            <th>操作</th>
 
         </tr>
         </thead>
         <tbody>
         <%
             List<Sell> sellList = (List<Sell>) session.getAttribute("sellList");
+            String userid = (String)session.getAttribute("userid");
+            int id = Integer.parseInt(userid);
             if(sellList != null && !sellList.isEmpty()){
                 for (int i = 0; i < sellList.size(); i++) {
                     Sell sell = sellList.get(i);
@@ -39,13 +42,27 @@
             <td><%=sell.getGuntype()%></td>
             <td><%=sell.getSkinname()%></td>
             <td><%=sell.getMoney()%></td>
+            <td>
+                <%
+                    if(id == sell.getTo()){
+                %>
+                <form action="/buff/normal/addeva" method="POST">
+                    <input type="hidden" name="sellid" value="<%= sell.getId() %>">
+                    <input type="hidden" name="userid" value="<%= sell.getTo() %>">
+                    <input type="text" name="content"/>
+                    <button type="button" onclick="if (confirm('确定要添加评价吗？')) { this.form.submit(); }">添加评价</button>
+                </form>
+                <%
+                    }
+                %>
+            </td>
         </tr>
         <%
             }
         }else{
         %>
         <tr>
-            <td colspan="6">暂无交易数据</td>
+            <td colspan="7">暂无交易数据</td>
         </tr>
         <%
             }

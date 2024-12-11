@@ -35,9 +35,10 @@
         <input type="hidden" name="sellstatus" value="<%= user.getSellstatus() %>">
         <button type="submit">查看市场</button>
     </form>
-    <form action="/buff/normal/pagingShare" method="POST">
+    <form action="/buff/normal/pagingEvaluation" method="POST">
+        <input type="hidden" name="userid" value="<%= user.getId() %>">
         <input type="hidden" name="username" value="<%= user.getUsername() %>">
-        <button type="submit">玩家秀</button>
+        <button type="submit">交易评价</button>
     </form>
 
     <form action="/buff/normal/pagingSell" method="POST">

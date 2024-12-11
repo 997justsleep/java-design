@@ -2,9 +2,6 @@ package zxr.design.jsp.admin.servlet;
 
 import zxr.design.jsp.admin.service.IUserService;
 import zxr.design.jsp.admin.service.Impl.UserServiceImpl;
-import zxr.design.jsp.normal.service.IInventoryService;
-import zxr.design.jsp.normal.service.impl.InventoryServiceImpl;
-import zxr.design.jsp.pub.pojo.Inventory;
 import zxr.design.jsp.pub.pojo.User;
 
 import javax.servlet.ServletException;

@@ -2,7 +2,6 @@ package zxr.design.jsp.admin.servlet;
 
 import zxr.design.jsp.normal.service.IMarketService;
 import zxr.design.jsp.normal.service.impl.MarketServiceImpl;
-import zxr.design.jsp.pub.dao.Impl.MarketDaoImpl;
 import zxr.design.jsp.pub.pojo.Market;
 
 import javax.servlet.ServletException;

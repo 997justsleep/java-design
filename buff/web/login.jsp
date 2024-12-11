@@ -11,12 +11,12 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="/buff/login" method="post">
-        账号：<input type="text" name="username"/><br/>
-        密码：<input type="password" name="password"/><br/>
-        <input type="submit" value="登录"/>
-        <input type="reset" value="重置"/><br/>
-        <a href="regist.jsp">什么？！没有账号？点击此处注册</a>
-    </form>
+<form action="/buff/login" method="post">
+    账号：<input type="text" name="username"/><br/>
+    密码：<input type="password" name="password"/><br/>
+    <input type="submit" value="登录"/>
+    <input type="reset" value="重置"/><br/>
+    <a href="regist.jsp">什么？！没有账号？点击此处注册</a>
+</form>
 </body>
 </html>

@@ -2,7 +2,6 @@ package zxr.design.jsp.pub.dao.Impl;
 
 import zxr.design.jsp.pub.dao.IInventoryDao;
 import zxr.design.jsp.pub.pojo.Inventory;
-import zxr.design.jsp.pub.pojo.Market;
 
 import java.sql.*;
 import java.sql.SQLException;
